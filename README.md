@@ -18,7 +18,7 @@ It serves as a file-parser of all Bookshelf-format Benchmarks and creates an obj
 - If functions are used separately, will need minor changes depending on how you want to use them.
 
 # Authors
-- **Kranas Georgios** (PlebeianDev) -- [Github](https://github.com/PlebeianDev)
+- **George Kranas** (PlebeianDev) -- [Github](https://github.com/PlebeianDev)
 
 # License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/PlebeianDev/Benchmark-Reader-for-Placement-in-Python/blob/master/LICENSE) file for details.
