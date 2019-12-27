@@ -4,9 +4,9 @@
 Benchmark Reader is project that was created as a "by-product" of 2-year experimentation on creating mini hardware placement utilities tools, and other placement related projects.
 It serves as a file-parser of all Bookshelf-format Benchmarks and creates an object oriented form of benchmark, as shown below, all according to bookshelf format and standards.
  -  Benchmark (Map):
- -- Rows
- -- Nets
- -- Cells
+  - Rows
+  - Nets
+  - Cells
 
 ### Built with 
 - Python 3.7.3, compatible with any python 3x.
