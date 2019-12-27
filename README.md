@@ -12,10 +12,10 @@ It serves as a file-parser of all Bookshelf-format Benchmarks and creates an obj
 - Python 3.7.3, compatible with any python 3x.
 
 # Getting Started 
-- Read/View [example.py](https://github.com/PlebeianDev/Benchmark-Reader-for-Placement-in-Python/blob/master/src/example.py) for a very simple use in code.
+- Read/View [example.py](https://github.com/PlebeianDev/Benchmark-Reader-for-Placement-in-Python/blob/master/src/example.py) for simple usage example.
+- Be sure to check example.py via a python debugger, so you can have a full view of the design and classes/objects.
 - If used as a whole, be sure to place all the project files in the same folder.
 - If functions are used separately, will need minor changes depending on how you want to use them.
-- Finally, be sure to check example.py via a python debugger, so you can have a full view of the design and classes/objects.
 
 # Authors
 - **Kranas Georgios** (PlebeianDev) -- [Github](https://github.com/PlebeianDev)
