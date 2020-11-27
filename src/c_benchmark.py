@@ -74,6 +74,8 @@ class Benchmark:
             cell.generate_cell(cell_coordinates[cell_name], cell_name)
             self.cells[cell_name] = cell
             tmp.append(cell)
+            if cell.movetype is not None:
+                self.pins[cell.name] = cell
         return tmp
 
     def generate_benchmark_nets(self, file_parser: FParser, tmp_cells_list: list):
