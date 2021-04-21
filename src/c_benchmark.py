@@ -42,15 +42,15 @@ class Benchmark:
         min_y = left_x = float(sys.float_info.max)
         max_y = right_x = float(sys.float_info.min)
 
-        for cell in self.cells.keys():
-            if self.cells[cell].low_y <= min_y:
-                min_y = self.cells[cell].low_y
-            if self.cells[cell].left_x <= left_x:
-                left_x = self.cells[cell].left_x
-            if self.cells[cell].high_y >= max_y:
-                max_y = self.cells[cell].high_y
-            if self.cells[cell].right_x >= right_x:
-                right_x = self.cells[cell].right_x
+        for row in self.rows:
+            if row.corerow <= min_y:
+                min_y = row.corerow
+            if row.subroworigin <= left_x:
+                left_x = row.subroworigin
+            if row.higher_y >= max_y:
+                max_y = row.higher_y
+            if row.right_x >= right_x:
+                right_x = row.right_x
 
         self.low_y = min_y
         self.left_x = left_x
