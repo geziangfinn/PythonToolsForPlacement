@@ -1,3 +1,4 @@
+from c_cell import Cell
 import sys
 
 
@@ -29,7 +30,7 @@ class Net:
     def make_cells_list(self, cells_from_file: set):
         self.cells = cells_from_file
 
-    def calculate_net_corners(self, cells: {}):
+    def calculate_net_corners(self, cells: dict):
         low_y = sys.float_info.max
         left_x = sys.float_info.max
         high_y = sys.float_info.min
@@ -54,6 +55,11 @@ class Net:
         h = self.high_y - self.low_y
         w = self.right_x - self.left_x
         self.hpwl = h + w
+    
+    def check_if_cell_in_net(self, cell: Cell):
+        if cell.name in self.cells:
+            return True
+        return False
 
     def generate_net(self, nets_dict: dict, cells_list: list, nets_index: dict):
         """

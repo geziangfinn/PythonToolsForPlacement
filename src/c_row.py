@@ -23,13 +23,28 @@ class Row:
         self.higher_y = self.corerow + self.height
 
     def calculate_area(self):
-        self.area = self.higher_y - self.corerow * self.right_x - self.subroworigin
+        self.area = (self.higher_y - self.corerow) * (self.right_x - self.subroworigin)
+
+    def calculate_density(self):
+        """
+        Calculates density of row depending on cells placed into it.
+        """
+        cells_area = 0.0
+        for c in self.cells:
+            cells_area += c.width
+        self.density = cells_area / self.area  # row.area should be calculated in benchmark init
+
+    def find_cells(self, cells):
+        """
+        Finds cells placed in row
+        """
+        for cell in cells:
+            if cell.low_y == self.corerow:
+                self.cells.append(cell)
 
     def generate_row(self, tmp: list):
         """
         Custom row constructor compatible to info given by file-parsing
-        :param tmp:
-        :return:
         """
 
         self.corerow = tmp[0]

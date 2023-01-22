@@ -26,11 +26,13 @@ class Benchmark:
         self.right_x = 0.0
         self.height = 0.0
         self.width = 0.0
+        self.density = 0.0
 
         self.cells = {}
         self.nets = {}
+        self.num_rows = 0
         self.rows = []
-        self.pins = {}  # terminal-cells of 1/1 size
+        self.pins = {}
 
         self.hpwl = 0.0
 
@@ -63,8 +65,6 @@ class Benchmark:
     def generate_benchmark_cells(self, file_parser: FParser):
         """
         Generates Cell instances inside Benchmark
-        :param file_parser:
-        :return:
         """
 
         tmp = []
@@ -81,9 +81,6 @@ class Benchmark:
     def generate_benchmark_nets(self, file_parser: FParser, tmp_cells_list: list):
         """
         Generates all Nets
-        :param tmp_cells_list:
-        :param file_parser:
-        :return:
         """
 
         nets, nets_index = file_parser.read_nets()
@@ -91,6 +88,11 @@ class Benchmark:
             net = Net()
             net.generate_net(nets, tmp_cells_list, nets_index)
             self.nets[net.name] = net
+
+    def generate_cells_connections(self):
+        for n in self.nets.values():
+            for c_name in n.cells:
+                self.cells[c_name].nets[n.name] = n
 
     def generate_benchmark_rows(self, file_parser: FParser):
         """
@@ -105,17 +107,24 @@ class Benchmark:
             row.generate_row(rows[row_name])
             self.rows.append(row)
 
-    def return_rows_number(self):
-        return len(self.rows)
+    def calculate_rows_number(self):
+        self.num_rows = len(self.rows)
 
     def calculate_hpwl(self):
         for net in self.nets.keys():
             self.hpwl += self.nets[net].hpwl
 
+    def recalculate_hpwl(self):
+        # Saves time when you need to check hpwl after cells' movement
+        self.hpwl = 0.0
+        for net in self.nets.values():
+            net.calculate_net_corners(self.cells)
+            net.calculate_hpwl()
+            self.hpwl += net.hpwl
+
     def generate_benchmark(self):
         """
         Generates a Benchmark instance with all its cells, nets and rows
-        :return:
         """
 
         file_parser = FParser(self.file_name)
@@ -124,8 +133,10 @@ class Benchmark:
         tmp_cells_list = self.generate_benchmark_cells(file_parser)
         # 2. Generate Nets
         self.generate_benchmark_nets(file_parser, tmp_cells_list)
+        self.generate_cells_connections()
         # 3. Generate Rows
         self.generate_benchmark_rows(file_parser)
+        self.calculate_rows_number()
         # 4. Calculate remaining attributes
         self.calculate_benchmark_area()
         self.calculate_benchmark_coordinates()
@@ -133,4 +144,11 @@ class Benchmark:
         for net in self.nets.keys():
             self.nets[net].calculate_net_corners(self.cells)
             self.nets[net].calculate_hpwl()
+        # 6. Check if all terminal added previsously are pins or macros
+        for pin in self.pins.keys():
+            if self.pins[pin].low_y > self.low_y and self.pins[pin].high_y < self.high_y \
+                    and self.pins[pin].left_x > self.left_x and self.pins[pin].right_x < self.right_x:
+                self.pins.pop(pin)
+            else:
+                self.cells[pin].is_pin = True
         self.calculate_hpwl()

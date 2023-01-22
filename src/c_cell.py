@@ -15,6 +15,8 @@ class Cell:
         self.width = None
         self.height = None
         self.movetype = None  # Terminal or non-terminal/movable cells
+        self.is_pin = False
+        self.nets = {}
 
         # Calculated attributes
         self.high_y = None
@@ -31,9 +33,6 @@ class Cell:
     def generate_cell(self, tmp: list, name: str):
         """
         Custom cell constructor compatible to info given by file-parsing
-        :param tmp:
-        :param name:
-        :return:
         """
 
         self.name = name
