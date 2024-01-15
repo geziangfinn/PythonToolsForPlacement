@@ -62,6 +62,7 @@ class FParser:
                         nets_index[net_counter] = 'n' + str(net_counter)
                     else:
                         nets['n' + str(net_counter)].append(data[0])
+                        print(data[0])
         return nets, nets_index
 
     def read_rows(self):
@@ -92,3 +93,15 @@ class FParser:
                     rows[row_count].append(float(data[2]))  # SubrowOrigin
                     rows[row_count].append(float(data[5]))  # NumSites
         return rows
+    
+    def read_pl(self,plfile:str):
+        cells = {}
+        data = []
+        # print(plfile)
+        with open(plfile) as p:
+            for num, line in enumerate(p):
+                if not(num == 0 or '#' in line or line == '\n'):
+                    data = line.split()
+                    cells[data[0]] = [float(data[1]), float(data[2])]  # cell_name: [left-x, low-y]
+        return cells
+        

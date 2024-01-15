@@ -4,8 +4,8 @@ class Cell:
     """
 
     counter = -1
-
-    def __init__(self):
+# cell: std cells and macors and terminals
+    def __init__(self): 
         Cell.counter += 1
 
         # benchmark attributes
@@ -15,8 +15,8 @@ class Cell:
         self.width = None
         self.height = None
         self.movetype = None  # Terminal or non-terminal/movable cells
-        self.is_pin = False
         self.nets = {}
+        self.pins={}
 
         # Calculated attributes
         self.high_y = None
@@ -30,17 +30,17 @@ class Cell:
     def calculate_right_x(self):
         self.right_x = self.left_x + self.width
 
-    def generate_cell(self, tmp: list, name: str):
+    def generate_cell(self, cell_info: list, name: str):
         """
         Custom cell constructor compatible to info given by file-parsing
         """
 
         self.name = name
-        self.low_y = tmp[1]
-        self.left_x = tmp[0]
-        self.width = tmp[2]
-        self.height = tmp[3]
-        self.movetype = tmp[4]
+        self.left_x = cell_info[0]
+        self.low_y = cell_info[1]
+        self.width = cell_info[2]
+        self.height = cell_info[3]
+        self.movetype = cell_info[4]
 
         self.calculate_high_y()
         self.calculate_right_x()
