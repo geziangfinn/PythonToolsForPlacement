@@ -37,6 +37,9 @@ class Benchmark:
         self.coreRegion_low_y=0.0
         self.coreRegion_high_y=0.0
 
+        self.coreRegionWidth=0.0;
+        self.coreRegionHeight=0.0;
+
         self.cells = {}# map for all cells
         self.nets = {}
         self.num_rows = 0
@@ -68,6 +71,9 @@ class Benchmark:
         self.coreRegion_low_y=min_y
         self.coreRegion_high_y=max_y
 
+        self.coreRegionWidth=self.coreRegion_right_x-self.coreRegion_left_x
+        self.coreRegionHeight=self.coreRegion_high_y-self.coreRegion_low_y
+        
         for cell_name in self.cells.keys():
             if self.cells[cell_name].left_x<=min_x:
                 min_x=self.cells[cell_name].left_x
